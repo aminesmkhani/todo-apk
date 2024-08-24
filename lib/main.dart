@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todolist/data.dart';
 
@@ -10,11 +11,14 @@ void main() async {
   Hive.registerAdapter(TaskAdapter());
   Hive.registerAdapter(PriorityAdapter());
   await Hive.openBox<Task>(taskBoxName);
-
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(statusBarColor: primaryVariantColor),
+  );
   runApp(const MyApp());
 }
 
 const Color primaryColor = Color(0xff794CFF);
+const Color primaryVariantColor = Color(0xff5C0AFF);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,14 +33,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.light(
           primary: primaryColor,
-          primaryContainer: Color(0xff5C0AFF),
+          primaryContainer: primaryVariantColor,
           surface: primaryColor,
           onSurface: primaryTextColor,
           secondary: primaryColor,
           onSecondary: Colors.white,
         ),
-
-        useMaterial3: false,
+        useMaterial3: true,
       ),
       home: const HomeScreen(),
     );
@@ -49,10 +52,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final box = Hive.box<Task>(taskBoxName);
+    final themeData = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('To Do List'),
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
@@ -60,21 +61,37 @@ class HomeScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => EditTaskScreen()));
           },
           label: Text('Add New Task')),
-      body: ValueListenableBuilder<Box<Task>>(
-        valueListenable: box.listenable(),
-        builder: (context, box, child) {
-          return ListView.builder(
-              itemCount: box.values.length,
-              itemBuilder: (context, index) {
-                final Task task = box.values.toList()[index];
-                return Container(
-                  child: Text(
-                    task.name,
-                    style: TextStyle(fontSize: 24),
-                  ),
-                );
-              });
-        },
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              height: 100,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                themeData.colorScheme.primary,
+                themeData.colorScheme.primaryContainer,
+              ])),
+            ),
+            Expanded(
+              child: ValueListenableBuilder<Box<Task>>(
+                valueListenable: box.listenable(),
+                builder: (context, box, child) {
+                  return ListView.builder(
+                      itemCount: box.values.length,
+                      itemBuilder: (context, index) {
+                        final Task task = box.values.toList()[index];
+                        return Container(
+                          child: Text(
+                            task.name,
+                            style: TextStyle(fontSize: 24),
+                          ),
+                        );
+                      });
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
