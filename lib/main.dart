@@ -33,10 +33,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         inputDecorationTheme: InputDecorationTheme(
-          labelStyle: TextStyle(color: secondaryTextColor),
-          iconColor: secondaryTextColor,
-          border:InputBorder.none 
-        ),
+            labelStyle: TextStyle(color: secondaryTextColor),
+            iconColor: secondaryTextColor,
+            border: InputBorder.none),
         colorScheme: ColorScheme.light(
           primary: primaryColor,
           primaryContainer: primaryVariantColor,
@@ -106,9 +105,8 @@ class HomeScreen extends StatelessWidget {
                           color: themeData.colorScheme.onPrimary,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 20
-                              )
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 20)
                           ]),
                       child: TextField(
                         decoration: InputDecoration(
