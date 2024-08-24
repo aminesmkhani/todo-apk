@@ -62,16 +62,21 @@ class HomeScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => EditTaskScreen()));
           },
           label: Text('Add New Task')),
-      body: ListView.builder(
-          itemCount: box.values.length,
-          itemBuilder: (context, index) {
-            final Task task = box.values.toList()[index];
-            return Container(
-              child: Text(task.name,
-              style: TextStyle(fontSize: 24),
-              ),
-            );
-          }),
+      body: ValueListenableBuilder<Box<Task>>(
+        valueListenable: box.listenable(),
+        builder: (context, box, child){
+           return ListView.builder(
+            itemCount: box.values.length,
+            itemBuilder: (context, index) {
+              final Task task = box.values.toList()[index];
+              return Container(
+                child: Text(task.name,
+                style: TextStyle(fontSize: 24),
+                ),
+              );
+            });
+        }, 
+      ),
     );
   }
 }
