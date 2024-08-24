@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -71,14 +72,26 @@ class HomeScreen extends StatelessWidget {
                 themeData.colorScheme.primary,
                 themeData.colorScheme.primaryContainer,
               ])),
-              child: Column(
-                children: [
-                  Row(children: [
-                    Text('To DO List',
-                    style: themeData.textTheme.titleLarge!.apply(color: Colors.white),
-                    )
-                  ],),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'To DO List',
+                          style: themeData.textTheme.titleLarge!
+                              .apply(color: themeData.colorScheme.onPrimary),
+                        ),
+                        Icon(
+                          CupertinoIcons.share,
+                          color: themeData.colorScheme.onPrimary,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
