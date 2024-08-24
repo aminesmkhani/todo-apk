@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 100,
+              height: 104,
               decoration: BoxDecoration(
                   gradient: LinearGradient(colors: [
                 themeData.colorScheme.primary,
@@ -89,6 +89,25 @@ class HomeScreen extends StatelessWidget {
                           color: themeData.colorScheme.onPrimary,
                         )
                       ],
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Container(
+                      height: 40,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: themeData.colorScheme.onPrimary,
+                          boxShadow: [
+                            BoxShadow(color: Colors.black.withOpacity(0.1))
+                          ]),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(CupertinoIcons.search),
+                          label: Text('Search tasks'),
+                        ),
+                      ),
                     ),
                   ],
                 ),
