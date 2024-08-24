@@ -12,7 +12,7 @@ void main() async {
   Hive.registerAdapter(PriorityAdapter());
   await Hive.openBox<Task>(taskBoxName);
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(statusBarColor: primaryVariantColor),
+    const SystemUiOverlayStyle(statusBarColor: primaryVariantColor),
   );
   runApp(const MyApp());
 }
@@ -71,6 +71,15 @@ class HomeScreen extends StatelessWidget {
                 themeData.colorScheme.primary,
                 themeData.colorScheme.primaryContainer,
               ])),
+              child: Column(
+                children: [
+                  Row(children: [
+                    Text('To DO List',
+                    style: themeData.textTheme.titleLarge!.apply(color: Colors.white),
+                    )
+                  ],),
+                ],
+              ),
             ),
             Expanded(
               child: ValueListenableBuilder<Box<Task>>(
