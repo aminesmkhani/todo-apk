@@ -67,7 +67,9 @@ class HomeScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             final Task task = box.values.toList()[index];
             return Container(
-              child: Text(task.name),
+              child: Text(task.name,
+              style: TextStyle(fontSize: 24),
+              ),
             );
           }),
     );
