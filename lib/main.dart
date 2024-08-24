@@ -32,6 +32,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(color: secondaryTextColor),
+          iconColor: secondaryTextColor,
+          border:InputBorder.none 
+        ),
         colorScheme: ColorScheme.light(
           primary: primaryColor,
           primaryContainer: primaryVariantColor,
@@ -66,7 +71,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 104,
+              height: 110,
               decoration: BoxDecoration(
                   gradient: LinearGradient(colors: [
                 themeData.colorScheme.primary,
@@ -91,7 +96,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 12,
+                      height: 16,
                     ),
                     Container(
                       height: 40,
@@ -100,7 +105,10 @@ class HomeScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           color: themeData.colorScheme.onPrimary,
                           boxShadow: [
-                            BoxShadow(color: Colors.black.withOpacity(0.1))
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 20
+                              )
                           ]),
                       child: TextField(
                         decoration: InputDecoration(
