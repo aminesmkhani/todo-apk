@@ -204,15 +204,11 @@ class TaskItem extends StatelessWidget {
     return Container(
       height: 84,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: themeData.colorScheme.onSecondary,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 20,
-            color: Colors.black.withOpacity(0.25)
-          )
-        ]
-      ),
+          borderRadius: BorderRadius.circular(8),
+          color: themeData.colorScheme.onSecondary,
+          boxShadow: [
+            BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(0.25))
+          ]),
       child: Row(
         children: [
           Text(
@@ -221,6 +217,24 @@ class TaskItem extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class MyCheckBox extends StatelessWidget {
+  final bool value;
+
+  const MyCheckBox({super.key, required this.value});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 24,
+      height: 24,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: value ? Border.all(color: secondaryTextColor) : null,
+          color: value ? primaryColor : null),
+          child: value?const Icon(CupertinoIcons.check_mark):null,
     );
   }
 }
