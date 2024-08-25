@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(
-          TextTheme(
+          const TextTheme(
             titleLarge: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -69,7 +69,15 @@ class HomeScreen extends StatelessWidget {
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => EditTaskScreen()));
           },
-          label: Text('Add New Task')),
+          label: const Row(
+            children: [
+              Text('Add New Task'),
+              SizedBox(
+                width: 4,
+              ),
+              Icon(CupertinoIcons.add_circled_solid)
+            ],
+          )),
       body: SafeArea(
         child: Column(
           children: [
@@ -128,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                 valueListenable: box.listenable(),
                 builder: (context, box, child) {
                   return ListView.builder(
-                      padding: EdgeInsets.fromLTRB(16, 16, 16, 100),
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
                       itemCount: box.values.length + 1,
                       itemBuilder: (context, index) {
                         if (index == 0) {
@@ -144,7 +152,7 @@ class HomeScreen extends StatelessWidget {
                                         .apply(fontSizeFactor: 0.9),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(top: 4),
+                                    margin: const EdgeInsets.only(top: 4),
                                     width: 70,
                                     height: 3,
                                     decoration: BoxDecoration(
@@ -155,7 +163,7 @@ class HomeScreen extends StatelessWidget {
                                 ],
                               ),
                               MaterialButton(
-                                color: Color(0xffEAEFF5),
+                                color: const Color(0xffEAEFF5),
                                 textColor: secondaryTextColor,
                                 elevation: 0,
                                 onPressed: () {},
@@ -215,21 +223,28 @@ class _TaskItemState extends State<TaskItem> {
       child: Container(
         padding: const EdgeInsets.only(right: 16, left: 16),
         height: 84,
+        margin: const EdgeInsets.only(top: 8),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: themeData.colorScheme.onSecondary,
-            boxShadow: [
-              BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(0.25))
-            ]),
+          borderRadius: BorderRadius.circular(8),
+          color: themeData.colorScheme.onSecondary,
+        ),
         child: Row(
           children: [
             MyCheckBox(value: widget.task.isCompleted),
             const SizedBox(
               width: 16,
             ),
-            Text(
-              widget.task.name,
-              style:  TextStyle(fontSize: 24,decoration: widget.task.isCompleted? TextDecoration.lineThrough:null),
+            Expanded(
+              child: Text(
+                widget.task.name,
+                maxLines: 1,
+                overflow: TextOverflow.fade,
+                style: TextStyle(
+                    fontSize: 24,
+                    decoration: widget.task.isCompleted
+                        ? TextDecoration.lineThrough
+                        : null),
+              ),
             ),
           ],
         ),
@@ -263,11 +278,13 @@ class MyCheckBox extends StatelessWidget {
 
 class EditTaskScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
+
+  EditTaskScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Task'),
+        title: const Text('Edit Task'),
       ),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
@@ -283,12 +300,12 @@ class EditTaskScreen extends StatelessWidget {
 
             Navigator.of(context).pop();
           },
-          label: Text('Save Changes')),
+          label: const Text('Save Changes')),
       body: Column(
         children: [
           TextField(
             controller: _controller,
-            decoration: InputDecoration(label: Text('Add a Task for today..')),
+            decoration: const InputDecoration(label: Text('Add a Task for today..')),
           ),
         ],
       ),
