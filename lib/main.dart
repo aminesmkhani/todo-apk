@@ -14,7 +14,7 @@ void main() async {
   Hive.registerAdapter(PriorityAdapter());
   await Hive.openBox<TaskEntity>(taskBoxName);
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(statusBarColor: primaryVariantColor),
+    const SystemUiOverlayStyle(statusBarColor: primaryColor),
   );
   runApp(const MyApp());
 }
@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         inputDecorationTheme: const InputDecorationTheme(
+            floatingLabelBehavior: FloatingLabelBehavior.never,
             labelStyle: TextStyle(color: secondaryTextColor),
             iconColor: secondaryTextColor,
             border: InputBorder.none),
