@@ -211,6 +211,8 @@ class TaskItem extends StatelessWidget {
           ]),
       child: Row(
         children: [
+          MyCheckBox(value: task.isCompleted),
+          SizedBox(width:16,),
           Text(
             task.name,
             style: const TextStyle(fontSize: 24),
@@ -232,7 +234,7 @@ class MyCheckBox extends StatelessWidget {
       height: 24,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: value ? Border.all(color: secondaryTextColor) : null,
+          border: !value ? Border.all(color: secondaryTextColor,width: 2) : null,
           color: value ? primaryColor : null),
           child: value?const Icon(CupertinoIcons.check_mark):null,
     );
