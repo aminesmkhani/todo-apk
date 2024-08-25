@@ -6,7 +6,7 @@ import 'package:todolist/main.dart';
 
 class EditTaskScreen extends StatefulWidget {
   final TaskEntity task;
-  EditTaskScreen({super.key, required this.task});
+  const EditTaskScreen({super.key, required this.task});
 
   @override
   State<EditTaskScreen> createState() => _EditTaskScreenState();
@@ -105,10 +105,14 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
             ),
             TextField(
               controller: _controller,
-              decoration:
-                   InputDecoration(label: Text('Add a Task for today..',
-                  style: Theme.of(context).textTheme.bodyLarge!.apply(fontSizeFactor: 1.2),
-                  )),
+              decoration: InputDecoration(
+                  label: Text(
+                'Add a Task for today..',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .apply(fontSizeFactor: 1.2),
+              )),
             ),
           ],
         ),
