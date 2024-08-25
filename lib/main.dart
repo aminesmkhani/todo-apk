@@ -205,15 +205,15 @@ class TaskItem extends StatefulWidget {
 class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
-   final ThemeData themeData = Theme.of(context);
+    final ThemeData themeData = Theme.of(context);
     return InkWell(
-      onTap: (){
+      onTap: () {
         setState(() {
-          widget.task.isCompleted=!widget.task.isCompleted;
+          widget.task.isCompleted = !widget.task.isCompleted;
         });
       },
       child: Container(
-        padding: const EdgeInsets.only(right: 16,left: 16),
+        padding: const EdgeInsets.only(right: 16, left: 16),
         height: 84,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
@@ -224,10 +224,12 @@ class _TaskItemState extends State<TaskItem> {
         child: Row(
           children: [
             MyCheckBox(value: widget.task.isCompleted),
-            const SizedBox(width:16,),
+            const SizedBox(
+              width: 16,
+            ),
             Text(
               widget.task.name,
-              style: const TextStyle(fontSize: 24),
+              style:  TextStyle(fontSize: 24,decoration: widget.task.isCompleted? TextDecoration.lineThrough:null),
             ),
           ],
         ),
@@ -242,15 +244,19 @@ class MyCheckBox extends StatelessWidget {
   const MyCheckBox({super.key, required this.value});
   @override
   Widget build(BuildContext context) {
-      final ThemeData themeData = Theme.of(context);
+    final ThemeData themeData = Theme.of(context);
     return Container(
       width: 24,
       height: 24,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: !value ? Border.all(color: secondaryTextColor,width: 2) : null,
+          border:
+              !value ? Border.all(color: secondaryTextColor, width: 2) : null,
           color: value ? primaryColor : null),
-          child: value? Icon(CupertinoIcons.check_mark,size: 16,color:themeData.colorScheme.onPrimary ):null,
+      child: value
+          ? Icon(CupertinoIcons.check_mark,
+              size: 16, color: themeData.colorScheme.onPrimary)
+          : null,
     );
   }
 }
