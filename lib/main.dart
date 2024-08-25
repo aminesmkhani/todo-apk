@@ -100,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Container(
@@ -114,7 +114,7 @@ class HomeScreen extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.1),
                                 blurRadius: 20)
                           ]),
-                      child: TextField(
+                      child: const TextField(
                         decoration: InputDecoration(
                           prefixIcon: Icon(CupertinoIcons.search),
                           label: Text('Search tasks'),
@@ -172,12 +172,7 @@ class HomeScreen extends StatelessWidget {
                           );
                         } else {
                           final Task task = box.values.toList()[index - 1];
-                          return Container(
-                            child: Text(
-                              task.name,
-                              style: TextStyle(fontSize: 24),
-                            ),
-                          );
+                          return TaskItem(task: task);
                         }
                       });
                 },
@@ -185,6 +180,25 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class TaskItem extends StatelessWidget {
+  const TaskItem({
+    super.key,
+    required this.task,
+  });
+
+  final Task task;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        task.name,
+        style: TextStyle(fontSize: 24),
       ),
     );
   }
