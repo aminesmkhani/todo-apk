@@ -10,7 +10,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(TaskAdapter());
   Hive.registerAdapter(PriorityAdapter());
-  await Hive.openBox<Task>(taskBoxName);
+  await Hive.openBox<TaskEntity>(taskBoxName);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: primaryVariantColor),
   );
@@ -33,9 +33,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(
           TextTheme(
-            titleLarge: TextStyle(
-              fontWeight: FontWeight.bold
-            ),
+            titleLarge: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
         inputDecorationTheme: const InputDecorationTheme(
@@ -62,7 +60,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final box = Hive.box<Task>(taskBoxName);
+    final box = Hive.box<TaskEntity>(taskBoxName);
     final themeData = Theme.of(context);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -126,7 +124,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ValueListenableBuilder<Box<Task>>(
+              child: ValueListenableBuilder<Box<TaskEntity>>(
                 valueListenable: box.listenable(),
                 builder: (context, box, child) {
                   return ListView.builder(
@@ -142,7 +140,8 @@ class HomeScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Today',
-                                    style: themeData.textTheme.titleLarge!.apply(fontSizeFactor: 0.9),
+                                    style: themeData.textTheme.titleLarge!
+                                        .apply(fontSizeFactor: 0.9),
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(top: 4),
@@ -163,15 +162,21 @@ class HomeScreen extends StatelessWidget {
                                 child: const Row(
                                   children: [
                                     Text("Delete All"),
-                                    SizedBox(width: 4,),
-                                     Icon(CupertinoIcons.delete_solid,size: 18,)
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Icon(
+                                      CupertinoIcons.delete_solid,
+                                      size: 18,
+                                    )
                                   ],
                                 ),
                               ),
                             ],
                           );
                         } else {
-                          final Task task = box.values.toList()[index - 1];
+                          final TaskEntity task =
+                              box.values.toList()[index - 1];
                           return TaskItem(task: task);
                         }
                       });
@@ -191,14 +196,30 @@ class TaskItem extends StatelessWidget {
     required this.task,
   });
 
-  final Task task;
+  final TaskEntity task;
 
   @override
   Widget build(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
     return Container(
-      child: Text(
-        task.name,
-        style: TextStyle(fontSize: 24),
+      height: 84,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: themeData.colorScheme.onSecondary,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 20,
+            color: Colors.black.withOpacity(0.25)
+          )
+        ]
+      ),
+      child: Row(
+        children: [
+          Text(
+            task.name,
+            style: const TextStyle(fontSize: 24),
+          ),
+        ],
       ),
     );
   }
@@ -214,13 +235,13 @@ class EditTaskScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            final task = Task();
+            final task = TaskEntity();
             task.name = _controller.text;
             task.priority = Priority.low;
             if (task.isInBox) {
               task.save();
             } else {
-              final Box<Task> box = Hive.box(taskBoxName);
+              final Box<TaskEntity> box = Hive.box(taskBoxName);
               box.add(task);
             }
 
