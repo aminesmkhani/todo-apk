@@ -216,20 +216,20 @@ class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-    final priorityColor;
+    final Color priorityColor;
     switch(widget.task.priority){
       
       case Priority.low:
         priorityColor=lowColor;
         break;
       case Priority.normal:
-        priorityColor=lowColor;
+        priorityColor=normalColor;
         break;
       case Priority.hight:
-        priorityColor=lowColor;
+        priorityColor=primaryColor;
         break;
 
-    };
+    }
     return InkWell(
       onTap: () {
         setState(() {
@@ -237,7 +237,7 @@ class _TaskItemState extends State<TaskItem> {
         });
       },
       child: Container(
-        padding: const EdgeInsets.only(right: 16, left: 16),
+        padding: const EdgeInsets.only(left: 16),
         height: 84,
         margin: const EdgeInsets.only(top: 8),
         decoration: BoxDecoration(
@@ -262,9 +262,16 @@ class _TaskItemState extends State<TaskItem> {
                         : null),
               ),
             ),
+            const SizedBox(width: 8,),
             Container(
+              width: 4,
+              height: 84,
               decoration: BoxDecoration(
-                color: 
+                color: priorityColor,
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                  )
               ),
             ),
           ],
