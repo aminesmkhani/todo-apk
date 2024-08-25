@@ -238,7 +238,7 @@ class _TaskItemState extends State<TaskItem> {
       },
       child: Container(
         padding: const EdgeInsets.only(left: 16),
-        height: 84,
+        height: 74,
         margin: const EdgeInsets.only(top: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
@@ -263,7 +263,6 @@ class _TaskItemState extends State<TaskItem> {
                 maxLines: 1,
                 overflow: TextOverflow.fade,
                 style: TextStyle(
-                    fontSize: 24,
                     decoration: widget.task.isCompleted
                         ? TextDecoration.lineThrough
                         : null),
@@ -274,7 +273,7 @@ class _TaskItemState extends State<TaskItem> {
             ),
             Container(
               width: 4,
-              height: 84,
+              height: 74,
               decoration: BoxDecoration(
                   color: priorityColor,
                   borderRadius: const BorderRadius.only(
