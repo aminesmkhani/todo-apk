@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => EditTaskScreen()));
+                MaterialPageRoute(builder: (context) => EditTaskScreen(task: TaskEntity(),)));
           },
           label: const Row(
             children: [

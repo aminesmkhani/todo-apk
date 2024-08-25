@@ -6,8 +6,8 @@ import 'package:todolist/main.dart';
 
 class EditTaskScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
-
-  EditTaskScreen({super.key});
+final TaskEntity task;
+  EditTaskScreen({super.key, required this.task});
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
@@ -49,13 +49,32 @@ class EditTaskScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Flex(direction: Axis.horizontal,children: [
-              Flexible(flex: 1,child: PriorityCheckBox()),
-              const SizedBox(width: 8,),
-              Flexible(flex: 1,child: PriorityCheckBox()),
-              const SizedBox(width: 8,),
-              Flexible(flex: 1,child: PriorityCheckBox()),
-            ],),
+            Flex(
+              direction: Axis.horizontal,
+              children: [
+                Flexible(flex: 1, child: PriorityCheckBox(
+                  label: 'High',
+                  color: primaryColor,
+                  isSelected: task.priority==Priority.hight,
+                )),
+                const SizedBox(
+                  width: 8,
+                ),
+                Flexible(flex: 1, child: PriorityCheckBox(
+                  label: 'Normal',
+                  color: const Color(0xffF09819),
+                  isSelected: task.priority==Priority.normal,
+                )),
+                const SizedBox(
+                  width: 8,
+                ),
+                Flexible(flex: 1, child: PriorityCheckBox(
+                  label: 'Low',
+                  color: const Color(0xff3BE1F1),
+                  isSelected: task.priority==Priority.low,
+                )),
+              ],
+            ),
             TextField(
               controller: _controller,
               decoration:
@@ -69,15 +88,25 @@ class EditTaskScreen extends StatelessWidget {
 }
 
 class PriorityCheckBox extends StatelessWidget {
+  final String label;
+  final Color color;
+  final bool isSelected;
+
+  const PriorityCheckBox({super.key, required this.label, required this.color, required this.isSelected});
   @override
   Widget build(BuildContext context) {
-    final ThemeData themeData=Theme.of(context);
+    final ThemeData themeData = Theme.of(context);
     return Container(
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(width: 2,color: secondaryTextColor.withOpacity(0.2)),
+        border:
+            Border.all(width: 2, color: secondaryTextColor.withOpacity(0.2)),
       ),
+      child: Stack(children: [
+        Center(child: Text(label),),
+        MyCheckBox(value: isSelected),
+      ],),
     );
   }
 }
