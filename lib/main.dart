@@ -21,7 +21,8 @@ void main() async {
 const Color primaryColor = Color(0xff794CFF);
 const Color primaryVariantColor = Color(0xff5C0AFF);
 const secondaryTextColor = Color(0xffAFBED0);
-
+const Color normalColor =  Color(0xffF09819);
+const Color lowColor =  Color(0xff3BE1F1);
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -245,6 +246,11 @@ class _TaskItemState extends State<TaskItem> {
                     decoration: widget.task.isCompleted
                         ? TextDecoration.lineThrough
                         : null),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: 
               ),
             ),
           ],

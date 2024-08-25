@@ -83,7 +83,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                         });
                       },
                       label: 'Normal',
-                      color: const Color(0xffF09819),
+                      color: normalColor,
                       isSelected: widget.task.priority == Priority.normal,
                     )),
                 const SizedBox(
@@ -98,7 +98,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                         });
                       },
                       label: 'Low',
-                      color: const Color(0xff3BE1F1),
+                      color: lowColor,
                       isSelected: widget.task.priority == Priority.low,
                     )),
               ],
