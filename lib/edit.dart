@@ -6,7 +6,7 @@ import 'package:todolist/main.dart';
 
 class EditTaskScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
-final TaskEntity task;
+  final TaskEntity task;
   EditTaskScreen({super.key, required this.task});
   @override
   Widget build(BuildContext context) {
@@ -52,27 +52,33 @@ final TaskEntity task;
             Flex(
               direction: Axis.horizontal,
               children: [
-                Flexible(flex: 1, child: PriorityCheckBox(
-                  label: 'High',
-                  color: primaryColor,
-                  isSelected: task.priority==Priority.hight,
-                )),
+                Flexible(
+                    flex: 1,
+                    child: PriorityCheckBox(
+                      label: 'High',
+                      color: primaryColor,
+                      isSelected: task.priority == Priority.hight,
+                    )),
                 const SizedBox(
                   width: 8,
                 ),
-                Flexible(flex: 1, child: PriorityCheckBox(
-                  label: 'Normal',
-                  color: const Color(0xffF09819),
-                  isSelected: task.priority==Priority.normal,
-                )),
+                Flexible(
+                    flex: 1,
+                    child: PriorityCheckBox(
+                      label: 'Normal',
+                      color: const Color(0xffF09819),
+                      isSelected: task.priority == Priority.normal,
+                    )),
                 const SizedBox(
                   width: 8,
                 ),
-                Flexible(flex: 1, child: PriorityCheckBox(
-                  label: 'Low',
-                  color: const Color(0xff3BE1F1),
-                  isSelected: task.priority==Priority.low,
-                )),
+                Flexible(
+                    flex: 1,
+                    child: PriorityCheckBox(
+                      label: 'Low',
+                      color: const Color(0xff3BE1F1),
+                      isSelected: task.priority == Priority.low,
+                    )),
               ],
             ),
             TextField(
@@ -92,7 +98,11 @@ class PriorityCheckBox extends StatelessWidget {
   final Color color;
   final bool isSelected;
 
-  const PriorityCheckBox({super.key, required this.label, required this.color, required this.isSelected});
+  const PriorityCheckBox(
+      {super.key,
+      required this.label,
+      required this.color,
+      required this.isSelected});
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
@@ -103,10 +113,39 @@ class PriorityCheckBox extends StatelessWidget {
         border:
             Border.all(width: 2, color: secondaryTextColor.withOpacity(0.2)),
       ),
-      child: Stack(children: [
-        Center(child: Text(label),),
-        MyCheckBox(value: isSelected),
-      ],),
+      child: Stack(
+        children: [
+          Center(
+            child: Text(label),
+          ),
+          Positioned(
+            right: 8,
+            bottom: 0,
+            top: 0,
+            child: Center(child: PriorityCheckBoxShape(value: isSelected,color: color,))),
+        ],
+      ),
+    );
+  }
+}
+
+class PriorityCheckBoxShape extends StatelessWidget {
+  final bool value;
+  final Color color;
+  const PriorityCheckBoxShape({super.key, required this.value, required this.color});
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData themeData = Theme.of(context);
+    return Container(
+      width: 16,
+      height: 16,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: color),
+      child: value
+          ? Icon(CupertinoIcons.check_mark,
+              size: 12, color: themeData.colorScheme.onPrimary)
+          : null,
     );
   }
 }
