@@ -20,6 +20,7 @@ void main() async {
 
 const Color primaryColor = Color(0xff794CFF);
 const Color primaryVariantColor = Color(0xff5C0AFF);
+const secondaryTextColor = Color(0xffAFBED0);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -28,7 +29,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryTextColor = Color(0xff1D2830);
-    final secondaryTextColor = Color(0xffAFBED0);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -124,30 +124,48 @@ class HomeScreen extends StatelessWidget {
                 valueListenable: box.listenable(),
                 builder: (context, box, child) {
                   return ListView.builder(
-                    padding: EdgeInsets.fromLTRB(16, 16, 16, 100),
+                      padding: EdgeInsets.fromLTRB(16, 16, 16, 100),
                       itemCount: box.values.length + 1,
                       itemBuilder: (context, index) {
                         if (index == 0) {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Today',
+                                    style: themeData.textTheme.headlineLarge!
+                                        .apply(fontSizeFactor: 0.8),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 4),
+                                    width: 70,
+                                    height: 3,
+                                    decoration: BoxDecoration(
+                                        color: primaryColor,
+                                        borderRadius:
+                                            BorderRadius.circular(1.5)),
+                                  )
+                                ],
+                              ),
+                              MaterialButton(
+                                color: Color(0xffEAEFF5),
+                                textColor: secondaryTextColor,
+                                onPressed: () {},
+                                child: const Row(
                                   children: [
-                                    Text('Today',style:themeData.textTheme.headlineLarge!.apply(fontSizeFactor: 0.8),),
-                                    Container(
-                                      margin: EdgeInsets.only(top: 4),
-                                      width: 70,
-                                      height: 3,
-                                      decoration: BoxDecoration(color: primaryColor,borderRadius: BorderRadius.circular(1.5)),
-                                    )
+                                    Text("Delete All"),
+                                    SizedBox(width: 4,),
+                                     Icon(CupertinoIcons.delete_solid,size: 18,)
                                   ],
                                 ),
-                                MaterialButton(onPressed: (){},child: Text("Delete All"),)
+                              ),
                             ],
                           );
                         } else {
-                          final Task task = box.values.toList()[index-1];
+                          final Task task = box.values.toList()[index - 1];
                           return Container(
                             child: Text(
                               task.name,
