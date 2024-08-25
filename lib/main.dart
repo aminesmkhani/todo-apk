@@ -1,8 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todolist/data.dart';
 
@@ -32,7 +31,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        inputDecorationTheme: InputDecorationTheme(
+        textTheme: GoogleFonts.poppinsTextTheme(
+          TextTheme(
+            titleLarge: TextStyle(
+              fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+        inputDecorationTheme: const InputDecorationTheme(
             labelStyle: TextStyle(color: secondaryTextColor),
             iconColor: secondaryTextColor,
             border: InputBorder.none),
@@ -84,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'To DO List',
+                          'To Do List',
                           style: themeData.textTheme.titleLarge!
                               .apply(color: themeData.colorScheme.onPrimary),
                         ),
@@ -136,8 +142,7 @@ class HomeScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Today',
-                                    style: themeData.textTheme.headlineLarge!
-                                        .apply(fontSizeFactor: 0.8),
+                                    style: themeData.textTheme.titleLarge!.apply(fontSizeFactor: 0.9),
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(top: 4),
@@ -153,6 +158,7 @@ class HomeScreen extends StatelessWidget {
                               MaterialButton(
                                 color: Color(0xffEAEFF5),
                                 textColor: secondaryTextColor,
+                                elevation: 0,
                                 onPressed: () {},
                                 child: const Row(
                                   children: [
