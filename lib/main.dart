@@ -232,9 +232,7 @@ class _TaskItemState extends State<TaskItem> {
     }
     return InkWell(
       onTap: () {
-        setState(() {
-          widget.task.isCompleted = !widget.task.isCompleted;
-        });
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EditTaskScreen(task: widget.task)))
       },
       child: Container(
         padding: const EdgeInsets.only(left: 16),
