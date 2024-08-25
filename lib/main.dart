@@ -59,16 +59,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
   final TextEditingController controller = TextEditingController();
-
+  final ValueNotifier<String> searchKeywordNotifier = ValueNotifier('');
   @override
   Widget build(BuildContext context) {
     final box = Hive.box<TaskEntity>(taskBoxName);
@@ -135,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ]),
                       child: TextField(
                         onChanged: (value) {
-                          setState(() {});
+                          searchKeywordNotifier.value = controller.text;
                         },
                         controller: controller,
                         decoration: const InputDecoration(
@@ -149,75 +143,80 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Expanded(
-              child: ValueListenableBuilder<Box<TaskEntity>>(
-                valueListenable: box.listenable(),
-                builder: (context, box, child) {
-                  final items;
-                  if (controller.text.isEmpty) {
-                    items = box.values.toList();
-                  } else {
-                    items = box.values
-                        .where((task) => task.name.contains(controller.text)).toList();
-                  }
-                  if (items.isNotEmpty) {
-                    return ListView.builder(
-                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
-                        itemCount: item.length + 1,
-                        itemBuilder: (context, index) {
-                          if (index == 0) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Today',
-                                      style: themeData.textTheme.titleLarge!
-                                          .apply(fontSizeFactor: 0.9),
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 4),
-                                      width: 70,
-                                      height: 3,
-                                      decoration: BoxDecoration(
-                                          color: primaryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(1.5)),
-                                    )
-                                  ],
-                                ),
-                                MaterialButton(
-                                  color: const Color(0xffEAEFF5),
-                                  textColor: secondaryTextColor,
-                                  elevation: 0,
-                                  onPressed: () {
-                                    box.clear();
-                                  },
-                                  child: const Row(
+              child: ValueListenableBuilder<String>(
+                valueListenable: searchKeywordNotifier,
+                builder: (context, value, child) {
+                 return ValueListenableBuilder<Box<TaskEntity>>(
+                  valueListenable: box.listenable(),
+                  builder: (context, box, child) {
+                    final List<TaskEntity> items;
+                    if (controller.text.isEmpty) {
+                      items = box.values.toList();
+                    } else {
+                      items = box.values
+                          .where((task) => task.name.contains(controller.text))
+                          .toList();
+                    }
+                    if (items.isNotEmpty) {
+                      return ListView.builder(
+                          padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
+                          itemCount: items.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index == 0) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text("Delete All"),
-                                      SizedBox(
-                                        width: 4,
+                                      Text(
+                                        'Today',
+                                        style: themeData.textTheme.titleLarge!
+                                            .apply(fontSizeFactor: 0.9),
                                       ),
-                                      Icon(
-                                        CupertinoIcons.delete_solid,
-                                        size: 18,
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 4),
+                                        width: 70,
+                                        height: 3,
+                                        decoration: BoxDecoration(
+                                            color: primaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(1.5)),
                                       )
                                     ],
                                   ),
-                                ),
-                              ],
-                            );
-                          } else {
-                            final TaskEntity task =
-                                items[index - 1];
-                            return TaskItem(task: task);
-                          }
-                        });
-                  } else {
-                    return const EmptyState();
-                  }
+                                  MaterialButton(
+                                    color: const Color(0xffEAEFF5),
+                                    textColor: secondaryTextColor,
+                                    elevation: 0,
+                                    onPressed: () {
+                                      box.clear();
+                                    },
+                                    child: const Row(
+                                      children: [
+                                        Text("Delete All"),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Icon(
+                                          CupertinoIcons.delete_solid,
+                                          size: 18,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            } else {
+                              final TaskEntity task = items[index - 1];
+                              return TaskItem(task: task);
+                            }
+                          });
+                    } else {
+                      return const EmptyState();
+                    }
+                  },
+                );
                 },
               ),
             ),
