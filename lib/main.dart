@@ -124,6 +124,7 @@ class HomeScreen extends StatelessWidget {
                 valueListenable: box.listenable(),
                 builder: (context, box, child) {
                   return ListView.builder(
+                    padding: EdgeInsets.fromLTRB(16, 16, 16, 100),
                       itemCount: box.values.length + 1,
                       itemBuilder: (context, index) {
                         if (index == 0) {
