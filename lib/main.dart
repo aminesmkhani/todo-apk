@@ -216,6 +216,20 @@ class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+    final priorityColor;
+    switch(widget.task.priority){
+      
+      case Priority.low:
+        priorityColor=lowColor;
+        break;
+      case Priority.normal:
+        priorityColor=lowColor;
+        break;
+      case Priority.hight:
+        priorityColor=lowColor;
+        break;
+
+    };
     return InkWell(
       onTap: () {
         setState(() {
