@@ -205,7 +205,7 @@ class TaskItem extends StatefulWidget {
 class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
-    ThemeData themeData = Theme.of(context);
+   final ThemeData themeData = Theme.of(context);
     return InkWell(
       onTap: (){
         setState(() {
@@ -242,6 +242,7 @@ class MyCheckBox extends StatelessWidget {
   const MyCheckBox({super.key, required this.value});
   @override
   Widget build(BuildContext context) {
+      final ThemeData themeData = Theme.of(context);
     return Container(
       width: 24,
       height: 24,
@@ -249,7 +250,7 @@ class MyCheckBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           border: !value ? Border.all(color: secondaryTextColor,width: 2) : null,
           color: value ? primaryColor : null),
-          child: value?const Icon(CupertinoIcons.check_mark):null,
+          child: value? Icon(CupertinoIcons.check_mark,size: 16,color:themeData.colorScheme.onPrimary ):null,
     );
   }
 }
