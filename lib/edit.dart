@@ -106,7 +106,9 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
             TextField(
               controller: _controller,
               decoration:
-                  const InputDecoration(label: Text('Add a Task for today..')),
+                   InputDecoration(label: Text('Add a Task for today..',
+                  style: Theme.of(context).textTheme.bodyLarge!.apply(fontSizeFactor: 1.2),
+                  )),
             ),
           ],
         ),
