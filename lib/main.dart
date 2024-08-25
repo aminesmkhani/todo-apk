@@ -190,7 +190,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class TaskItem extends StatelessWidget {
+class TaskItem extends StatefulWidget {
   const TaskItem({
     super.key,
     required this.task,
@@ -199,25 +199,38 @@ class TaskItem extends StatelessWidget {
   final TaskEntity task;
 
   @override
+  State<TaskItem> createState() => _TaskItemState();
+}
+
+class _TaskItemState extends State<TaskItem> {
+  @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
-    return Container(
-      height: 84,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: themeData.colorScheme.onSecondary,
-          boxShadow: [
-            BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(0.25))
-          ]),
-      child: Row(
-        children: [
-          MyCheckBox(value: task.isCompleted),
-          SizedBox(width:16,),
-          Text(
-            task.name,
-            style: const TextStyle(fontSize: 24),
-          ),
-        ],
+    return InkWell(
+      onTap: (){
+        setState(() {
+          widget.task.isCompleted=!widget.task.isCompleted;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.only(right: 16,left: 16),
+        height: 84,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: themeData.colorScheme.onSecondary,
+            boxShadow: [
+              BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(0.25))
+            ]),
+        child: Row(
+          children: [
+            MyCheckBox(value: widget.task.isCompleted),
+            const SizedBox(width:16,),
+            Text(
+              widget.task.name,
+              style: const TextStyle(fontSize: 24),
+            ),
+          ],
+        ),
       ),
     );
   }
