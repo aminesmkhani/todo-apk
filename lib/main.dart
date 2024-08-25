@@ -171,7 +171,9 @@ class HomeScreen extends StatelessWidget {
                                 color: const Color(0xffEAEFF5),
                                 textColor: secondaryTextColor,
                                 elevation: 0,
-                                onPressed: () {},
+                                onPressed: () {
+                                  box.clear();
+                                },
                                 child: const Row(
                                   children: [
                                     Text("Delete All"),
