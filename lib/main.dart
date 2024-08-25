@@ -218,7 +218,10 @@ class EmptyState extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SvgPicture.asset('assets/empty_state.svg',width: 120,),
+        SvgPicture.asset(
+          'assets/empty_state.svg',
+          width: 120,
+        ),
         const SizedBox(
           height: 12,
         ),
@@ -260,6 +263,9 @@ class _TaskItemState extends State<TaskItem> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => EditTaskScreen(task: widget.task)));
+      },
+      onLongPress: () {
+        widget.task.delete();
       },
       child: Container(
         padding: const EdgeInsets.only(left: 16),
