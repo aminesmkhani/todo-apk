@@ -124,15 +124,36 @@ class HomeScreen extends StatelessWidget {
                 valueListenable: box.listenable(),
                 builder: (context, box, child) {
                   return ListView.builder(
-                      itemCount: box.values.length,
+                      itemCount: box.values.length + 1,
                       itemBuilder: (context, index) {
-                        final Task task = box.values.toList()[index];
-                        return Container(
-                          child: Text(
-                            task.name,
-                            style: TextStyle(fontSize: 24),
-                          ),
-                        );
+                        if (index == 0) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Today',style:themeData.textTheme.headlineLarge!.apply(fontSizeFactor: 0.8),),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 4),
+                                      width: 70,
+                                      height: 3,
+                                      decoration: BoxDecoration(color: primaryColor,borderRadius: BorderRadius.circular(1.5)),
+                                    )
+                                  ],
+                                ),
+                                MaterialButton(onPressed: (){},child: Text("Delete All"),)
+                            ],
+                          );
+                        } else {
+                          final Task task = box.values.toList()[index-1];
+                          return Container(
+                            child: Text(
+                              task.name,
+                              style: TextStyle(fontSize: 24),
+                            ),
+                          );
+                        }
                       });
                 },
               ),
