@@ -13,7 +13,7 @@ class EditTaskScreen extends StatefulWidget {
 }
 
 class _EditTaskScreenState extends State<EditTaskScreen> {
-  final TextEditingController _controller = TextEditingController();
+  late final TextEditingController _controller = TextEditingController(text: widget.task.name);
 
   @override
   Widget build(BuildContext context) {

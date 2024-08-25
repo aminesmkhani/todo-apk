@@ -21,8 +21,9 @@ void main() async {
 const Color primaryColor = Color(0xff794CFF);
 const Color primaryVariantColor = Color(0xff5C0AFF);
 const secondaryTextColor = Color(0xffAFBED0);
-const Color normalColor =  Color(0xffF09819);
-const Color lowColor =  Color(0xff3BE1F1);
+const Color normalColor = Color(0xffF09819);
+const Color lowColor = Color(0xff3BE1F1);
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -68,8 +69,10 @@ class HomeScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => EditTaskScreen(task: TaskEntity(),)));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EditTaskScreen(
+                      task: TaskEntity(),
+                    )));
           },
           label: const Row(
             children: [
@@ -217,22 +220,21 @@ class _TaskItemState extends State<TaskItem> {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final Color priorityColor;
-    switch(widget.task.priority){
-      
+    switch (widget.task.priority) {
       case Priority.low:
-        priorityColor=lowColor;
+        priorityColor = lowColor;
         break;
       case Priority.normal:
-        priorityColor=normalColor;
+        priorityColor = normalColor;
         break;
       case Priority.hight:
-        priorityColor=primaryColor;
+        priorityColor = primaryColor;
         break;
-
     }
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EditTaskScreen(task: widget.task)))
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => EditTaskScreen(task: widget.task)));
       },
       child: Container(
         padding: const EdgeInsets.only(left: 16),
@@ -244,11 +246,14 @@ class _TaskItemState extends State<TaskItem> {
         ),
         child: Row(
           children: [
-            MyCheckBox(value: widget.task.isCompleted,onTap: (){
-              setState(() {
-                widget.task.isCompleted = !widget.task.isCompleted;
-              });
-            },),
+            MyCheckBox(
+              value: widget.task.isCompleted,
+              onTap: () {
+                setState(() {
+                  widget.task.isCompleted = !widget.task.isCompleted;
+                });
+              },
+            ),
             const SizedBox(
               width: 16,
             ),
@@ -264,17 +269,18 @@ class _TaskItemState extends State<TaskItem> {
                         : null),
               ),
             ),
-            const SizedBox(width: 8,),
+            const SizedBox(
+              width: 8,
+            ),
             Container(
               width: 4,
               height: 84,
               decoration: BoxDecoration(
-                color: priorityColor,
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(8),
-                  bottomRight: Radius.circular(8),
-                  )
-              ),
+                  color: priorityColor,
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(8),
+                    bottomRight: Radius.circular(8),
+                  )),
             ),
           ],
         ),
@@ -309,4 +315,3 @@ class MyCheckBox extends StatelessWidget {
     );
   }
 }
-
