@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todolist/data.dart';
+import 'package:todolist/edit.dart';
 
 const taskBoxName = 'tasks';
 void main() async {
